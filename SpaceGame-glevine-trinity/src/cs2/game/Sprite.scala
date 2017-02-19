@@ -32,6 +32,6 @@ abstract class Sprite (protected val img:Image, protected var pos:Vec2) {
    *  @return none/Unit
    */
   def display (g:GraphicsContext) { 
-    //g.drawImage(img, pos.x,pos.y)
+    g.drawImage(img, pos.x,pos.y)
   }
 }

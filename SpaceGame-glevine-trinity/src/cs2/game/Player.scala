@@ -20,15 +20,16 @@ class Player(avatar:Image, initPos:Vec2, bulletPic:Image)
    *  
    *  @return none/Unit
    */
-  def moveLeft() { }
+  def moveLeft() { 
+    initPos.x = initPos.x-15
+  }
   
   /** moves the player sprite one "step" to the right (see note above)
    * 
    *  @return none/Unit
    */
   def moveRight() { 
-    initPos.x = initPos.x+30
-    println("SDF")
+    initPos.x = initPos.x+15
   }
   
   /** creates a new Bullet instance beginning from the player, with an 
@@ -36,11 +37,6 @@ class Player(avatar:Image, initPos:Vec2, bulletPic:Image)
    * 
    *  @return Bullet - the newly created Bullet object that was fired
    */
-  def shoot():Bullet = {new Bullet(avatar,initPos, initPos) }
-  
-  override def display(g:GraphicsContext) {
-    g.drawImage(avatar, initPos.x,initPos.y)
-    //println("Works")
-    
-  }
+  def shoot():Bullet = {
+    new Bullet(bulletPic,new Vec2(initPos.x+25,initPos.y-50),new Vec2(0,-5)) }
 }

@@ -22,16 +22,19 @@ object SpaceGameApp extends JFXApp {
     scene = new Scene(1000,900) {
       val canvas = new Canvas(1000,900)
       val g = canvas.graphicsContext2D
-      val playerImg = new Image("file:EvilHibbs.jpg",100,100,false, true)
-      val enemyImg = new Image("file:EvilLewis.png")
-      val bulletImg = new Image("file:Bullet.png")
+      val playerImg = new Image("file:EvilHibbs.jpg",200,200,false,true)
+      val enemyImg = new Image("file:EvilLewis.png",100,100,false,true)
+      val bulletImg = new Image("file:Bullet.png",50,50,false,true)
       
-      val player = new Player(playerImg, new Vec2(450,800), bulletImg)
-      var rightPressed, leftPressed = false
+      val player = new Player(playerImg, new Vec2(450,700), bulletImg)
+      var playerBulletList = List[Bullet]()
+      var rightPressed, leftPressed, shootPressed = false
       
       canvas.onKeyPressed = (ke:KeyEvent) => {
         ke.code match {
           case KeyCode.Right => rightPressed = true
+          case KeyCode.Left => leftPressed = true
+          case KeyCode.Space => shootPressed = true
           case _ =>
         }
       }
@@ -39,6 +42,8 @@ object SpaceGameApp extends JFXApp {
       canvas.onKeyReleased = (ke:KeyEvent) => {
         ke.code match {
           case KeyCode.Right => rightPressed = false
+          case KeyCode.Left => leftPressed = false
+          case KeyCode.Space => shootPressed = false
           case _ =>
         }
       }
@@ -52,7 +57,14 @@ object SpaceGameApp extends JFXApp {
       val timer = AnimationTimer(t => {
         if(t - priorTime > 1e9/60) {
           priorTime = t
+          g.fill = Color.White
+          g.fillRect(0,0, canvas.width.value, canvas.height.value)
+          playerBulletList.foreach { bullet => bullet.timeStep()}
+          playerBulletList.foreach { bullet => bullet.display(g)}
           if(rightPressed) player.moveRight()
+          if(leftPressed) player.moveLeft()
+          if(shootPressed) playerBulletList ::= player.shoot()
+          
           player.display(g)
         }
       })
