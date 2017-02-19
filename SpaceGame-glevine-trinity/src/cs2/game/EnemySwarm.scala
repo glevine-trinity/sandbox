@@ -11,14 +11,21 @@ import cs2.util.Vec2
  *  @param nRows - number of rows of enemy objects
  *  @param nCols - number of columns of enemy objects
  */
-class EnemySwarm(private val nRows:Int, private val nCols:Int) extends ShootsBullets {
+class EnemySwarm(private val nRows:Int, private val nCols:Int, enemiesList:List[Enemy]) extends ShootsBullets {
 	
+  val r = scala.util.Random
 	/** method to display all Enemy objects contained within this EnemySwarm
 	 * 
 	 *  @param g - the GraphicsContext to draw into
 	 *  @return none/Unit
 	 */
-	def display(g:GraphicsContext) { }
+	def display(g:GraphicsContext) { 
+	  for(r <- 0 until nRows) {
+        for(c <- 0 until nCols) {
+          enemiesList(r*5+c).display(g)
+        }
+      }
+	}
   
   /** overridden method of ShootsBullets. Creates a single, new bullet instance 
    *  originating from a random enemy in the swarm. (Not a bullet from every 
@@ -26,6 +33,7 @@ class EnemySwarm(private val nRows:Int, private val nCols:Int) extends ShootsBul
    *  
    *  @return Bullet - the newly created Bullet object fired from the swarm
    */
-  def shoot():Bullet = { new Bullet(bulletImg, new Vec2(0,0), new Vec2(5,5))}
-  
+  def shoot():Bullet = { 
+    enemiesList(r.nextInt(10)).shoot()
+  }
 }
