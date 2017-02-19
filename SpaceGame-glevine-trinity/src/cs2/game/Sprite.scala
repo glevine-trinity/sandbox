@@ -31,6 +31,7 @@ abstract class Sprite (protected val img:Image, protected var pos:Vec2) {
    *  @param g - a GraphicsContext object capable of drawing the sprite
    *  @return none/Unit
    */
-  def display (g:GraphicsContext) { }
-  
+  def display (g:GraphicsContext) { 
+    //g.drawImage(img, pos.x,pos.y)
+  }
 }

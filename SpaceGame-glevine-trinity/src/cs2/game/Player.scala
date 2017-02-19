@@ -2,6 +2,7 @@ package cs2.game
 
 import scalafx.scene.image.Image
 import cs2.util.Vec2
+import scalafx.scene.canvas.GraphicsContext
 
 /** The player representation for a simple game based on sprites. Handles all 
  *  information regarding the player's positions, movements, and abilities.
@@ -25,7 +26,10 @@ class Player(avatar:Image, initPos:Vec2, bulletPic:Image)
    * 
    *  @return none/Unit
    */
-  def moveRight() { }
+  def moveRight() { 
+    initPos.x = initPos.x+30
+    println("SDF")
+  }
   
   /** creates a new Bullet instance beginning from the player, with an 
    *  appropriate velocity
@@ -34,4 +38,9 @@ class Player(avatar:Image, initPos:Vec2, bulletPic:Image)
    */
   def shoot():Bullet = {new Bullet(avatar,initPos, initPos) }
   
+  override def display(g:GraphicsContext) {
+    g.drawImage(avatar, initPos.x,initPos.y)
+    //println("Works")
+    
+  }
 }
