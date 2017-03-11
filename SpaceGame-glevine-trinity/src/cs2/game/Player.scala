@@ -14,22 +14,18 @@ import scalafx.scene.canvas.GraphicsContext
 class Player(avatar:Image, initPos:Vec2, bulletPic:Image) 
                 extends Sprite(avatar, initPos) with ShootsBullets {
 
-  /** moves the player sprite one "step" to the left.  The amount of this 
-   *  movement will likely need to be tweaked in order for the movement to feel 
-   *  natural.
-   *  
-   *  @return none/Unit
-   */
-  def moveLeft() { 
-    initPos.x = initPos.x-15
+  //The 900 and 1000 checks are the canvas boundaries
+  def moveDown() { 
+    if(initPos.y+150<900) initPos.y = initPos.y+15
   }
-  
-  /** moves the player sprite one "step" to the right (see note above)
-   * 
-   *  @return none/Unit
-   */
+  def moveUp() { 
+    if(initPos.y>0) initPos.y = initPos.y-15
+  }
+  def moveLeft() { 
+    if(initPos.x>0) initPos.x = initPos.x-15
+  }
   def moveRight() { 
-    initPos.x = initPos.x+15
+    if(initPos.x+150<1000) initPos.x = initPos.x+15
   }
   
   /** creates a new Bullet instance beginning from the player, with an 
@@ -38,5 +34,5 @@ class Player(avatar:Image, initPos:Vec2, bulletPic:Image)
    *  @return Bullet - the newly created Bullet object that was fired
    */
   def shoot():Bullet = {
-    new Bullet(bulletPic,new Vec2(initPos.x+25,initPos.y-50),new Vec2(0,-5)) }
+    new Bullet(bulletPic,new Vec2(initPos.x+25,initPos.y-50),new Vec2(0,-20)) }
 }

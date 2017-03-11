@@ -34,4 +34,21 @@ abstract class Sprite (protected val img:Image, protected var pos:Vec2) {
   def display (g:GraphicsContext) { 
     g.drawImage(img, pos.x,pos.y)
   }
+  
+  def intersect(spr1:Sprite):Boolean = { //This implementation assums this is stationary and spr1 is approaching
+    val spr1Top = spr1.pos.y
+    val spr1Bottom = spr1.pos.y + spr1.img.height.toInt
+    val spr1Left = spr1.pos.x
+    val spr1Right = spr1.pos.x + spr1.img.width.toInt
+    val thisTop = this.pos.y
+    val thisBottom = this.pos.y + this.img.height.toInt
+    val thisLeft = this.pos.x
+    val thisRight = this.pos.x + this.img.width.toInt
+    
+    if((spr1Top >= thisTop && spr1Top <= thisBottom) && (spr1Left >= thisLeft && spr1Left <= thisRight)) true
+    else if((spr1Top >= thisTop && spr1Top <= thisBottom) && (spr1Right >= thisLeft && spr1Right <= thisRight)) true
+    else if((spr1Bottom >= thisTop && spr1Bottom <= thisBottom) && (spr1Left >= thisLeft && spr1Left <= thisRight)) true
+    else if((spr1Bottom >= thisTop && spr1Bottom <= thisBottom) && (spr1Right >= thisLeft && spr1Right <= thisRight)) true
+    else false 
+  }
 }

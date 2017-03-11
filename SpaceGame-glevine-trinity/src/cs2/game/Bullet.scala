@@ -21,4 +21,8 @@ class Bullet(pic:Image, initPos:Vec2, private var vel:Vec2) extends Sprite(pic, 
 	  initPos += vel
 	}
   
+	def isOffScreen():Boolean = {
+	  if(this.initPos.x<0 || this.initPos.x+this.img.width.toInt > 1000 || this.initPos.y<0 || this.initPos.y+this.img.height.toInt > 900) true
+	  else false
+	}
 }

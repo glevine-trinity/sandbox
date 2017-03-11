@@ -27,6 +27,10 @@ class EnemySwarm(private val nRows:Int, private val nCols:Int, enemiesList:List[
       }
 	}
   
+  def shift() {
+    for(n <- enemiesList) n.shiftPath()
+  }
+  
   /** overridden method of ShootsBullets. Creates a single, new bullet instance 
    *  originating from a random enemy in the swarm. (Not a bullet from every 
    *  object, just a single from a random enemy)
